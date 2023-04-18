@@ -5,20 +5,42 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:LeoEditor.GameProject"
              mc:Ignorable="d" Width="800"
+             d:DataContext="{d:DesignInstance Type=local:CreateProject, IsDesignTimeCreatable=True}"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <local:CreateProject />
+    </UserControl.DataContext>
     
     <StackPanel Background="White">
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <ListBox Width="195" Height="250" />
-            <Border Width="400" Height="250" Margin="5, 0, 0, 0" />
+        <!--游戏模板列表和屏幕略图面板 -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="50, 0, 0, 0">
+            <!--从结构体中读取数据，包括Icon，ProjectType，ScreenShot等 -->
+            <ListBox Width="195" Height="250" ItemsSource="{Binding ProjectTemplates}" x:Name="TemplateListBox" SelectedIndex="0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding Icon}" Margin="0, 0, 5, 0" />
+                            <TextBlock Text="{Binding ProjectType}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <!--屏幕略图面板 -->
+            <Border Width="500" Height="250" Margin="5, 0, 0, 0">
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding Path=SelectedItem.ScreenShot, ElementName=TemplateListBox}" />
+                </Border.Background>
+            </Border>
         </StackPanel>
+        <!--游戏工程名称 -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="50, 20, 0, 0">
             <TextBlock Text="Name" Width="50" />
-            <TextBox Width="550" />
+            <TextBox Width="550" Text="{Binding ProjectName}"/>
         </StackPanel>
+        <!--游戏工程路径，绑定ProjectPath -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="50, 5, 0, 0">
             <TextBlock Text="Path" Width="50" />
-            <TextBox Width="500" />
+            <TextBox Width="500"  Text="{Binding ProjectPath}"/>
             <Button Content="Browse" Width="45" Margin="5, 0, 0, 0"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="50, 30, 0, 0">
