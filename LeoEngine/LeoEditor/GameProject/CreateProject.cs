@@ -31,7 +31,7 @@ namespace LeoEditor.GameProject
     class CreateProject : ViewModeBase
     {
         // TODO: Get the path from the installation location
-        private readonly string _templatePath = @"..\..\LeoEditor\ProjectTemplates";
+        private readonly string _templatePath = $@"..\..\..\LeoEditor\ProjectTemplates";
         // 默认名称和路径
         private string _projectName = "NewProject";
         private string _projectPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\LeoProject\";
